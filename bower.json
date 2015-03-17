@@ -1,0 +1,21 @@
+{
+  "name": "SoftengiIncidents",
+  "version": "0.0.1",
+  "authors": [
+    "di.scheglov@hotmail.com"
+  ],
+  "description": "Softengi test-task project",
+  "main": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "angular": "~1.3.14",
+    "moment": "~2.9.0"
+  }
+}

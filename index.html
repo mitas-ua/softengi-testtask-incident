@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="incidents">
+	<head>
+		<title>Incidents Initial Step - Softengi</title>
+		<meta charset="UTF-8" />
+		<!-- Styles -->
+		<link rel="stylesheet" href="static/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="static/bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
+		<link rel="stylesheet" href="static/bower_components/datetimepicker/jquery.datetimepicker.css"/>
+
+		<!-- Scripts -->
+		<script type="text/javascript" src="static/bower_components/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="static/bower_components/angular/angular.min.js"></script>
+		<script type="text/javascript" src="static/bower_components/moment/min/moment.min.js"></script>
+		<script type="text/javascript" src="static/bower_components/datetimepicker/jquery.datetimepicker.js"></script>
+		
+		<!-- Application scripts -->		
+		<script type="text/javascript" src="static/js/app.js"></script>  <!-- Main App script -->
+		<script type="text/javascript" src="static/js/func-tools.js"></script>  <!-- Helper for functions -->
+		<script type="text/javascript" src="static/js/incidents-resources.js"></script> <!-- App Resources: Incident and Action -->
+		<script type="text/javascript" src="static/js/moment-dates.js"></script> <!-- Attaches moment to DateTimePicker -->
+		<script type="text/javascript" src="static/js/datetime-picker.js"></script> <!-- Attaches jQuery.datetimepicker to angular app. -->
+		
+		<script type="text/javascript"
+				src="static/js/incidents-common.data.js"></script> <!-- Common data Provider for all other modules -->
+		<script type="text/javascript"
+				src="static/js/general-incident.directive.js"></script> <!-- directive: general-incident -->
+		<script type="text/javascript"
+				src="static/js/incident-actions.directive.js"></script> <!-- directive: incident-actions -->
+		<script type="text/javascript"
+				src="static/js/incident-review.directive.js"></script> <!-- directive: incident-review -->
+	</head>
+	<body>
+		<div class="container">
+			<h1>Incident form</h1>
+			<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+		        <li class="active">
+		        	<a href="#general" data-toggle="tab">General information</a>
+		        </li>
+		        <li class="">
+		        	<a href="#actions" data-toggle="tab">Corrective Actions</a>
+		        </li>
+		        <li class="">
+		        	<a href="#review" data-toggle="tab">REVIEW and SUBMIT</a>
+		        </li>
+		    </ul>
+		    <div class="tab-content panel panel-defaul" ng-controller="mainController as ctrl">
+		    	<div class="tab-pane active" id="general">
+					<general-incident manage="ctrl.incident"></general-incident>
+				</div>
+				<div class="tab-pane" id="actions">
+				    <incident-actions manage="ctrl.incident"></incident-actions>
+				</div>
+				<div class="tab-pane" id="review">
+				    <incident-review manage="ctrl.incident"></incedent-review>
+				</div>
+		    </div>
+		</div>
+	</body>
+</html>

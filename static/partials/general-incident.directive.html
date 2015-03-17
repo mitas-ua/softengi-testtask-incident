@@ -1,0 +1,152 @@
+<div class="panel-body">
+	<div class="alert alert-warning" role="alert">
+		<div class="pull-left">
+			<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+		</div>
+		<div class="clearfix">
+			<span class="col-sm-11">Please complete the form bellow
+				based on available information. Click an applicable tabs above to
+				enter additional information related the incident. <br />When
+				complete click "REVIEW and SUBMIT" tab above.
+			</span>
+		</div>
+	</div>
+	<form class="form-horizontal" name="incidentGeneral" novalidate>
+		<div class="col-lg-6">
+			<div class="form-group">
+				<label for="dateTime" class="col-lg-5 text-right">*
+					Date-time of incident:</label>
+				<div class="col-lg-7">
+					<div class="input-group" ng-class="ctrl.getValidClass('dateTime')">
+						<input dt-picker="ctrl.dtOptions" id="dateTime" name="dateTime"
+							class="form-control" ng-model="ctrl.incident.dateTime"
+							required='true' /> <span class="input-group-btn">
+							<button class="btn btn-default" type="button"
+								ng-click="ctrl.dtPickerBtnClick()"
+								ng-disabled="ctrl.dtPickerShown">
+								<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-class="ctrl.getValidClass('reportedBy')">
+				<label for="reportedBy" class="col-lg-5 text-right">*
+					Reported By:</label>
+				<div class="col-lg-7">
+					<input type="text" id="reportedBy" name="reportedBy"
+						class="form-control" ng-model="ctrl.incident.reportedBy"
+						required="true" />
+				</div>
+			</div>
+			<div class="form-group"
+				ng-class="ctrl.getValidClass('reporterCompany')">
+				<label for="reporterCompany" class="col-lg-5 text-right">*
+					Company of Reporter:</label>
+				<div class="col-lg-7">
+					<select id="reporterCompany" name="reporterCompany"
+						class="form-control" ng-model="ctrl.incident.reporterCompany"
+						ng-options="company for company in ctrl.companies"
+						required>
+						<option value="">-- select --</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group"
+				ng-class="ctrl.getValidClass('contactNumber')">
+				<label for="contactNumber" class="col-lg-5 text-right">*
+					Contact Number:</label>
+				<div class="col-lg-7">
+					<input type="text" id="contactNumber" name="contactNumber"
+						class="form-control" ng-model="ctrl.incident.contactNumber"
+						ng-pattern="ctrl.usPhoneRE" required="true" />
+				</div>
+			</div>
+			<div class="form-group"
+				ng-class="ctrl.getValidClass('supervisorName')">
+				<label for="supervisorName" class="col-lg-5 text-right"
+					style="font-weight: normal">Supervisor Name:</label>
+				<div class="col-lg-7">
+					<input type="text" id="supervisorName" name="supervisorName"
+						class="form-control" ng-model="ctrl.incident.supervisorName" />
+				</div>
+			</div>
+			<div class="form-group" ng-class="ctrl.getValidClass('description')">
+				<label for="description" class="col-lg-5 text-right"> * High
+					Level Description of Incident:</label>
+				<div class="col-lg-7">
+					<textarea type="text" id="description" name="description"
+						class="form-control" rows="5" ng-model="ctrl.incident.description"
+						required="true" /></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="form-group">
+				<div class="col-lg-6 col-lg-offset-5">
+					<strong class="form-control text-center"
+						style="border: none; box-shadow: none"> Well Information
+					</strong>
+				</div>
+			</div>
+			<div class="form-group" ng-class="ctrl.getValidClass('well')">
+				<label for="well" class="col-lg-5 text-right">* Well
+					number:</label>
+				<div class="col-lg-6">
+					<select id="well" name="well" class="form-control"
+						ng-model="ctrl.incident.well"
+						ng-options="well.number for well in ctrl.wells"
+						required>
+						<option value="">-- select --</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="wellRegion" class="col-lg-5 text-right">Region:</label>
+				<div class="col-lg-6">
+					<input type="text" id="wellRegion" name="wellRegion"
+						class="form-control" ng-model="ctrl.incident.well.region" readonly />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="wellState" class="col-lg-5 text-right">State:</label>
+				<div class="col-lg-6">
+					<input type="text" id="wellState" name="wellState"
+						class="form-control" ng-model="ctrl.incident.well.state" readonly />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="wellFieldOffice" class="col-lg-5 text-right">Field
+					Office:</label>
+				<div class="col-lg-6">
+					<input type="text" id="wellFieldOffice" name="wellFieldOffice"
+						class="form-control" ng-model="ctrl.incident.well.fieldOffice"
+						readonly />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-5 text-right">* Incident Severity
+					(Check all that Apply):</label>
+				<div class="col-lg-7">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div ng-repeat="key in ctrl.incidentSeverity">
+								<label style="font-weight: normal"> <input
+									type="checkbox" 
+									ng-disabled="ctrl.incident.incidentSeverity['None Apply']"
+									ng-model="ctrl.incident.incidentSeverity[''+key+'']" /> {{key}}
+								</label>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<label style="font-weight: normal"
+								   ng-class="{'text-danger': !ctrl.severityValid()}"> 
+								<input type="checkbox" ng-model="ctrl.incident.incidentSeverity['None Apply']"
+									   ng-click="ctrl.toggleIncidentSeverity()" /> None Apply
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+	</form>
+</div>
