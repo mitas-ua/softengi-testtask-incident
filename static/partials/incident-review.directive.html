@@ -1,0 +1,194 @@
+<div class="panel-body">
+	<div class="alert alert-warning" role="alert">
+		<div class="clearfix">
+			<div class="pull-left">
+				<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+			</div>
+			<div class="col-lg-11">
+				<span class="col-lg-10">Please review all incident information
+				and click "Submit" to send report to the Company.
+				If you want to change something - return to the Incident Form</span>
+			</div>
+			<div class="pull-right">
+				<button class="btn btn-default"
+						ng-click="ctrl.submit()"
+						ng-disabled="!ctrl.allowSubmit()">Submit</button>
+			</div>			
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<h3>General information</h3>
+			<table class="table table-condenced table-striped">
+				<tr>
+					<td class="col-lg-5 text-right">Date and Time of Incident</td>
+					<td class="col-lg-7">
+						<span ng-show="ctrl.allowShow('dateTime')">
+							{{ctrl.incident.dateTime | mdate: "MM/DD/YYYY hh:mm A"}} 
+						</span>
+						<span class="text-danger"
+							  ng-show="ctrl.showRequired('dateTime')">The field is required</span>
+						<span class="text-danger"
+							  ng-show="ctrl.wrongDate('dateTime')">The field must contain correct date-time.</span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-right">Reported By</td>
+					<td>
+						<span ng-show="ctrl.allowShow('reportedBy')">
+							{{ctrl.incident.reportedBy}} 
+						</span>
+						<span class="text-danger"
+							  ng-show="ctrl.showRequired('reportedBy')">The field is required</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">Company Of Reporter</td>
+					<td>
+						<span ng-show="ctrl.allowShow('reporterCompany')">
+							{{ctrl.incident.reporterCompany}} 
+						</span>
+						<span class="text-danger"
+							  ng-show="ctrl.showRequired('reporterCompany')">The field is required</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">Contact Number</td>
+					<td>
+						<span ng-show="ctrl.allowShow('contactNumber')">
+							{{ctrl.incident.contactNumber}} 
+						</span>
+						<span class="text-danger"
+							  ng-show="ctrl.showRequired('contactNumber')">The field is required</span>
+						<span class="text-danger"
+							  ng-show="ctrl.wrongPattern('contactNumber')">The field must contain correct U.S. number</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">Supervisor Name</td>
+					<td>
+						<span ng-show="ctrl.allowShow('supervisorName')">
+							{{ctrl.incident.supervisorName}} 
+						</span>
+						<span class="text-danger"
+							  ng-show="ctrl.showRequired('supervisorName')">The field is required</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">High Level Description of Incident</td>
+					<td>
+						<span ng-show="ctrl.allowShow('description')">
+							{{ctrl.incident.description}} 
+						</span>
+						<span class="text-danger"
+							  ng-show="ctrl.showRequired('description')">The field is required</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">Well number</td>
+					<td>
+						<span ng-show="ctrl.allowShow('well')">
+							{{ctrl.incident.well.number}} 
+						</span>
+						<span class="text-danger"
+							  ng-show="ctrl.showRequired('well')">The field is required</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">Region</td>
+					<td>
+						<span ng-show="ctrl.allowShow('well')">
+							{{ctrl.incident.well.region}} 
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">State</td>
+					<td>
+						<span ng-show="ctrl.allowShow('well')">
+							{{ctrl.incident.well.state}} 
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">Field office</td>
+					<td>
+						<span ng-show="ctrl.allowShow('well')">
+							{{ctrl.incident.well.fieldOffice}} 
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">Incident Severity (Check all that Apply)</td>
+					<td>
+						<span ng-show="ctrl.allowShow('severity')">
+							{{ctrl.incident.severity().join(", ")}} 
+						</span>
+						<span class="text-danger"
+							  ng-show="ctrl.showRequired('severity')">Check at least one option</span>
+					</td>
+				</tr>
+			</table>
+			<h3>Immediate Corrective action(s)</h3>
+			<table class="table table-condenced table-striped">
+				<tbody ng-repeat="action in ctrl.incident.actions" ng-show="ctrl.allowShowActions()">
+					<tr>
+						<td class="col-lg-5 text-right">
+							Description of Corrective Action ({{($index+1)}})
+						</td>
+						<td class="col-lg-7">
+							<span ng-show="ctrl.actionAllowShow('description', $index)">
+								{{action.description}}
+							</span>
+							<span class="text-danger" ng-show="ctrl.actionIsError('description', $index, 'required')">
+								The field is required
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-lg-5 text-right">
+							Action Taken By (name) ({{($index+1)}})
+						</td>
+						<td class="col-lg-7">
+							<span ng-show="ctrl.actionAllowShow('takenBy', $index)">
+								{{action.takenBy}}
+							</span>
+							<span class="text-danger" ng-show="ctrl.actionIsError('takenBy', $index, 'required')">
+								The field is required
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-lg-5 text-right">
+							Company ({{($index+1)}})
+						</td>
+						<td class="col-lg-7">
+							<span ng-show="ctrl.actionAllowShow('company', $index)">
+								{{action.company}}
+							</span>
+							<span class="text-danger" ng-show="ctrl.actionIsError('company', $index, 'required')">
+								The field is required
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-lg-5 text-right">
+							Date ({{($index+1)}})
+						</td>
+						<td class="col-lg-7">
+							<span ng-show="ctrl.actionAllowShow('date', $index)">
+								{{action.date | mdate:"MM/DD/YYYY"}}
+							</span>
+							<span class="text-danger" ng-show="ctrl.actionIsError('date', $index, 'required')">
+								The field is required
+							</span>
+							<span class="text-danger" ng-show="ctrl.actionIsError('date', $index, 'datetime')">
+								The field must contain correct date.
+							</span>
+						</td>
+					</tr>
+				</tbody>
+		</div>
+	</div>
+</div>
